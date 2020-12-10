@@ -1,0 +1,23 @@
+@charset "UTF-8";
+/*
+body {
+	
+	position: relative;
+	min-height: 100vh;
+}
+
+footer{
+	position: absolute;
+	bottom:0;
+	display:block;
+	left:0;
+	width:100vw;
+}
+*/
+.card-img-top{
+	width:80% !important;
+}
+
+h2{
+	padding:20px;
+}
