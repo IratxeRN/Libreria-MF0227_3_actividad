@@ -26,6 +26,7 @@ public class LoginServlet extends HttpServlet {
 
 		final String ADMIN_NAME = "administrador";
 		final String ADMIN_PASS = "123456";
+
 		String usuario = request.getParameter("usuario");
 		String password = request.getParameter("password");
 
@@ -33,7 +34,7 @@ public class LoginServlet extends HttpServlet {
 
 			HttpSession session = request.getSession();
 			session.setAttribute("usuario", usuario);
-			request.getRequestDispatcher("admin/gestion").forward(request, response);
+			response.sendRedirect(request.getContextPath() + "/admin/gestion");
 
 		} else {
 			request.getRequestDispatcher("/WEB-INF/vistas/login.jsp").forward(request, response);

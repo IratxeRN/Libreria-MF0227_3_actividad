@@ -7,7 +7,7 @@
   <div class="form-row">
 	   <div class="form-group col-12">
 	    <label for="nombre">Nombre</label>
-	    <input type="text" class="form-control" id="nombre" placeholder="Titulo mayor de 3 caracteres, (max. 150)." minlength="3" pattern="[A-Z][a-z]*" maxlength="150" required autofocus >
+	    <input type="text" class="form-control" id="nombre" name="nombre" placeholder="Titulo mayor de 3 caracteres, (max. 150)." pattern="[A-Z][a-z]*" autofocus >
 	  </div>
 	  <div class="form-group col-12">
 	    <label for="autor">Autor</label>

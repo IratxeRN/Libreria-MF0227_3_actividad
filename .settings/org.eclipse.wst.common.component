@@ -8,8 +8,8 @@
                 
         <wb-resource deploy-path="/WEB-INF/classes" source-path="/src"/>
                 
-        <property name="java-output-path" value="/ejercicio_MF0227_3/build/classes"/>
-        <property name="context-root" value="Libreria_MF0227_3"/>
+        <property name="java-output-path" value="/Libreria_MF0227_3/build/classes"/>
+        <property name="context-root" value="ejercicio_MF0227_3"/>
             
     </wb-module>
     
