@@ -14,6 +14,7 @@ public class LibrosMenu {
 	static final String OP_SALIR = "S";
 	static final String URL_IMG = "img/libros/";
 	static final String FILE_IMG = "imagen_defecto.jpg";
+	static final String AUTOR_POR_DEFECTO = "Anónimo";
 
 	static Scanner sc = null;
 	static String opcion = "";
@@ -21,10 +22,11 @@ public class LibrosMenu {
 	static Dao<Libro> dao = LibroDaoTreeMap.getInstancia();
 
 	public static void main(String[] args) {
-
+		// variable para controlar si seguimos mostrando el menu o paramos.
 		Boolean isMenu = true;
 
 		sc = new Scanner(System.in);
+
 		do {
 			menuPrincipal();
 
@@ -46,7 +48,7 @@ public class LibrosMenu {
 				break;
 			}
 			default:
-				System.out.println("Opción no válida. Debe introducir 1, 2, 3 o S \n");
+				System.out.println("Opción no válida. Debe introducir 1, 2, 3 o S \n"); // controlamos entrada de dato.
 				break;
 			}
 		} while (isMenu);
@@ -54,11 +56,13 @@ public class LibrosMenu {
 		System.out.println("\nFin del programa.");
 	}// main
 
+//////////////////////////////////////metodo que lista todos los registros /////////////	
 	public static void listar() {
-
+		// pasamos el resultado del dao a una lista
 		Iterable<Libro> libros = dao.listarTodos();
 
 		System.out.println("--- Opc 1 - LISTAR TODOS LOS LIBROS ---- \n");
+		// sacamos datos con formato.
 		for (Libro libro : libros) {
 			System.out.printf("Id: %2s, Titulo: %-60s [Precio: %.2f€ %s] - Autor: %s - Imagen: %s \n", +libro.getId(),
 					libro.getNombre(), libro.getPrecio(),
@@ -70,9 +74,10 @@ public class LibrosMenu {
 
 	}// END listar
 
+//////////////////////////////////////metodo que crea un registro /////////////	
 	private static void crear() {
 
-		Boolean isError = true;
+		Boolean isError = true;// variable para controlar si hay error
 		String nombre, autor, urlImg;
 		BigDecimal precio = new BigDecimal(0);
 		Integer descuento = 0;
@@ -94,7 +99,7 @@ public class LibrosMenu {
 
 		} while (isError);
 
-		do {
+		do { // controlamos que no se meta un caracter o dato erroneo
 			try {
 				System.out.println("Introducir Precio:  \n");
 				precio = new BigDecimal(sc.nextLine());
@@ -108,40 +113,49 @@ public class LibrosMenu {
 			}
 		} while (isError);
 
-		do {
+		do {// controlamos que no se meta un caracter o dato erroneo
 			try {
 				System.out.println("Introducir Descuento:  \n");
 				descuento = Integer.parseInt(sc.nextLine());
 				isError = false;
 			} catch (NumberFormatException e) {
-				System.out.println("Debe introducir cifras");
+				System.out.println("Debe introducir un numero");
 				isError = true;
 			} catch (Exception e) {
 				System.out.println("Ha ocurrido un ERROR");
 				isError = true;
 			}
 		} while (isError);
-
+		// si autor esta vacia, toma valor ANONIMO
 		System.out.println("Introducir Autor (por defecto Anónimo):  \n");
 		autor = sc.nextLine();
 		if (autor.isEmpty()) {
-			autor = "Anónimo";
+			autor = AUTOR_POR_DEFECTO;
 		}
 
 		System.out.println("Introducir url de la imagen(por defecto sin_imagen.jpg):  \n");
 		urlImg = sc.nextLine();
 		if (urlImg.isEmpty()) {
-			urlImg = URL_IMG + FILE_IMG;
+			urlImg = URL_IMG + FILE_IMG;// url + archivo por defecto
 		} else {
-			urlImg = URL_IMG + urlImg;
+			urlImg = URL_IMG + urlImg;// url + archivo jpg
 		}
 
-		Libro libro = new Libro(id, nombre, precio, descuento, autor, urlImg);
-		dao.crear(libro);
+		try {
+
+			Libro libro = new Libro(id, nombre, precio, descuento, autor, urlImg);
+			dao.crear(libro);
+			System.out.println("Libro creado correctamente \n");
+		} catch (Exception e) {
+			System.out.println("Error al crear el nuevo registro \n");
+		}
+
+		// listamos para ver que esta correcto
 		listar();
 
 	}// END Crear
 
+////////////////////////////////////// metodo que borra un registro /////////////	
 	private static void borrar() {
 
 		Boolean isError = true;
@@ -154,9 +168,11 @@ public class LibrosMenu {
 			try {
 				Integer id = Integer.parseInt(sc.nextLine());
 
+				// buscamos el id para ver que existe o devolver mensaje de error
 				if (dao.buscar(id) == null) {
 					System.out.println("Identificador de libro no encontrado.");
 				} else {
+
 					dao.borrar(id);
 					System.out.println("Libro eliminado con exito.");
 					isError = false;
@@ -171,9 +187,10 @@ public class LibrosMenu {
 		listar();
 	}// END borrar
 
+//////////////////////////////////////metodo para mostrar el menu /////////////	
 	public static void menuPrincipal() {
 
-		System.out.println("**** MENU PRINCIPAL *******************");
+		System.out.println("\n**** MENU PRINCIPAL *******************\n");
 		System.out.println(" " + OP_LISTAR + ".- Listar todos los libros");
 		System.out.println(" " + OP_CREAR + ".- Añadir un libro nuevo");
 		System.out.println(" " + OP_BORRAR + ".- Dar de baja un libro");
@@ -183,6 +200,6 @@ public class LibrosMenu {
 		System.out.println("Por favor, elige una opcion:");
 		opcion = sc.nextLine();
 
-	}
+	}// END menu
 
 }
