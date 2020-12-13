@@ -72,18 +72,7 @@ public class Libro {
 	}
 
 	public void setAutor(String autor) {
-
-		if (autor != null) {
-
-			if (autor.trim().isEmpty()) {
-
-				autor = AUTOR_DEFECTO;
-			}
-			this.autor = autor;
-		} else {
-
-			this.autor = AUTOR_DEFECTO;
-		}
+		this.autor = autor;
 
 	}
 
@@ -92,17 +81,7 @@ public class Libro {
 	}
 
 	public void setUrlImagen(String urlImagen) {
-		if (urlImagen != null) {
-
-			if (urlImagen.trim().isEmpty()) {
-
-				urlImagen = IMG_DEFECTO;
-			}
-			this.urlImagen = urlImagen;
-		} else {
-
-			this.urlImagen = IMG_DEFECTO;
-		}
+		this.urlImagen = urlImagen;
 
 	}
 

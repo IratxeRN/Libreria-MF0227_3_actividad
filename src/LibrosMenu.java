@@ -135,6 +135,7 @@ public class LibrosMenu {
 
 		System.out.println("Introducir url de la imagen(por defecto sin_imagen.jpg):  \n");
 		urlImg = sc.nextLine();
+
 		if (urlImg.isEmpty()) {
 			urlImg = URL_IMG + FILE_IMG;// url + archivo por defecto
 		} else {
